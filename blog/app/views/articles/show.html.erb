@@ -1,18 +1,30 @@
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Text</th>
-    <th colspan="2"></th>
-  </tr>
+<p>
+  <strong>Title:</strong>
+  <%= @article.title %>
+</p>
 
-  <% @articles.each do |article| %>
-  <tr>
-    <td><%= article.title %></td>
-    <td><%= article.text %></td>
-    <td><%= link_to 'Show', article_path(article) %></td>
-    <td><%= link_to 'Edit', edit_article_path(article) %></td>
-  </tr>
-  <% end %>
-</table>
-<%= link_to 'Back', articles_path %>
-<%= link_to 'Edit', edit_article_path(@article) %>
+<p>
+  <strong>Text:</strong>
+  <%= @article.text %>
+</p>
+
+<h2>Comments</h2>
+<%= render @article.comments %>
+
+<h2>Add a comment:</h2>
+<%= form_for([@article, @article.comments.build]) do |f| %>
+<p>
+  <%= f.label :commenter %><br>
+  <%= f.text_field :commenter %>
+</p>
+<p>
+  <%= f.label :body %><br>
+  <%= f.text_area :body %>
+</p>
+<p>
+  <%= f.submit %>
+</p>
+<% end %>
+
+<%= link_to 'Edit Article', edit_article_path(@article) %> |
+<%= link_to 'Back to Articles', articles_path %>
